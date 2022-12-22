@@ -4,11 +4,15 @@ import characters.OwnerOfTVStudio;
 import enums.Performance;
 import characters.Showman;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class TVStudio extends WorkPlace{
     private static boolean Dunno = false;
     private OwnerOfTVStudio owner;
     private Showman[] workersOfTVStudio;
     public TVStudio(OwnerOfTVStudio owner, Showman[] workersOfTVStudio){
+        super("ТВ Студия");
         this.owner = owner;
         this.workersOfTVStudio = workersOfTVStudio;
         owner.setSalary(1000);
@@ -41,5 +45,21 @@ public class TVStudio extends WorkPlace{
             performance = Performance.DUNNO_ON_THE_MOON;
         }
         System.out.println("В эфире: " + performance + ".");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        TVStudio tvStudio = (TVStudio) o;
+        return Objects.equals(owner, tvStudio.owner) && Arrays.equals(workersOfTVStudio, tvStudio.workersOfTVStudio);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(super.hashCode(), owner);
+        result = 31 * result + Arrays.hashCode(workersOfTVStudio);
+        return result;
     }
 }

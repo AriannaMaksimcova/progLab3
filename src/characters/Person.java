@@ -88,9 +88,15 @@ public class Person extends Character implements Emotional, UsePhone, UseTelevis
     public void setStateOfPatience(double stateOfPatience) {
         this.stateOfPatience = stateOfPatience;
     }
+    public String getEmotion() {
+        return emotion;
+    }
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Person object = (Person) obj;
+        return (this.getName() == object.getName()) && (this.getEmotion() == object.getEmotion()) && (this.getStateOfPatience() == object.getStateOfPatience());
     }
 
     @Override
@@ -100,6 +106,8 @@ public class Person extends Character implements Emotional, UsePhone, UseTelevis
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        int result = getName() == null ? 0: getName().hashCode();
+        result += getEmotion() == null ? 0: getEmotion().hashCode();
+        return result;
     }
 }

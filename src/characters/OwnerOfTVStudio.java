@@ -2,6 +2,8 @@ package characters;
 
 import interfaces.Boss;
 
+import java.util.Objects;
+
 public class OwnerOfTVStudio extends Person implements Boss {
     private double salary = 0.0;
 
@@ -28,5 +30,19 @@ public class OwnerOfTVStudio extends Person implements Boss {
     }
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        OwnerOfTVStudio that = (OwnerOfTVStudio) o;
+        return Double.compare(that.salary, salary) == 0 && wasThreatened == that.wasThreatened;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), salary, wasThreatened);
     }
 }
