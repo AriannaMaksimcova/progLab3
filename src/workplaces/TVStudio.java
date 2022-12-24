@@ -7,36 +7,32 @@ import characters.Showman;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class TVStudio extends WorkPlace{
+public class TVStudio extends WorkPlace<OwnerOfTVStudio, Showman>{
     private static boolean Dunno = false;
-    private OwnerOfTVStudio owner;
-    private Showman[] workersOfTVStudio;
-    public TVStudio(OwnerOfTVStudio owner, Showman[] workersOfTVStudio){
-        super("ТВ Студия");
-        this.owner = owner;
-        this.workersOfTVStudio = workersOfTVStudio;
-        owner.setSalary(1000);
-        for (Showman worker : workersOfTVStudio) {
-            owner.assignSalary(worker, 50);
+    public TVStudio(OwnerOfTVStudio boss, Showman[] workers){
+        super("ТВ Студия", boss, workers);
+        boss.setSalary(1000);
+        for (Showman worker : workers) {
+            boss.assignSalary(worker, 50);
         }
     }
     public void showPerformance(){
         Performance performance;
-        if (owner.isWasThreatened()){
-            owner.toAsk("Почему вы не показываете представление "+ Performance.DUNNO_ON_THE_MOON +
-                    "?", workersOfTVStudio[0]);
-            workersOfTVStudio[0].getAngry();
-            double needSalary = workersOfTVStudio[0].putForwardConditions(workersOfTVStudio[1], owner);
+        if (boss.isWasThreatened()){
+            boss.toAsk("Почему вы не показываете представление "+ Performance.DUNNO_ON_THE_MOON +
+                    "?", workers[0]);
+            workers[0].getAngry();
+            double needSalary = workers[0].putForwardConditions(workers[1], boss);
             int i = 100;
             boolean isAgreed;
             do{
-                owner.toSay("Я предлагаю вам з/п в размере " + i);
-                isAgreed = workersOfTVStudio[0].isAgreeWithConditions(owner, needSalary, i);
+                boss.toSay("Я предлагаю вам з/п в размере " + i);
+                isAgreed = workers[0].isAgreeWithConditions(boss, needSalary, i);
                 i += 300;
             } while (!isAgreed);
-            owner.agreeWithConditions(workersOfTVStudio[0]);
-            owner.assignSalary(workersOfTVStudio[0], i);
-            owner.assignSalary(workersOfTVStudio[1], i);
+            boss.agreeWithConditions(workers[0]);
+            boss.assignSalary(workers[0], i);
+            boss.assignSalary(workers[1], i);
             Dunno = true;
         }
         if (!Dunno){
@@ -53,13 +49,13 @@ public class TVStudio extends WorkPlace{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         TVStudio tvStudio = (TVStudio) o;
-        return Objects.equals(owner, tvStudio.owner) && Arrays.equals(workersOfTVStudio, tvStudio.workersOfTVStudio);
+        return Objects.equals(boss, tvStudio.boss) && Arrays.equals(workers, tvStudio.workers);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(super.hashCode(), owner);
-        result = 31 * result + Arrays.hashCode(workersOfTVStudio);
+        int result = Objects.hash(super.hashCode(), boss);
+        result = 31 * result + Arrays.hashCode(workers);
         return result;
     }
 }

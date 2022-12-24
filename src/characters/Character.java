@@ -19,7 +19,7 @@ public abstract class Character {
     public boolean equals(Object o){
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        return name == ((Character) o).getName();
+        return Objects.equals(name, ((Character) o).getName());
     }
 
     @Override

@@ -1,12 +1,17 @@
 package workplaces;
 
+import characters.Person;
+
 import java.util.Objects;
 
-public abstract class WorkPlace{
-    //<T>
+public abstract class WorkPlace <T extends Person, V extends Person>{
+    T boss;
+    V[] workers;
     private String name;
-    public WorkPlace(String name){
+    public WorkPlace(String name, T boss, V[] workers){
         this.name = name;
+        this.boss = boss;
+        this.workers = workers;
     }
 
     @Override
@@ -26,12 +31,4 @@ public abstract class WorkPlace{
     public int hashCode() {
         return Objects.hash(name);
     }
-    //    T boss;
-//    T[] workers;
-//
-//    public WorkPlace(String name, T boss, T[] workers) {
-//        this.name = name;
-//        this.boss = boss;
-//        this.workers = workers;
-//    }
 }

@@ -8,6 +8,8 @@ import interfaces.Emotional;
 import interfaces.UsePhone;
 import interfaces.UseTelevision;
 
+import java.util.Objects;
+
 public class Person extends Character implements Emotional, UsePhone, UseTelevision, CanTalk {
     private String emotion = "Neutral";
     private double stateOfPatience = 0;
@@ -96,7 +98,8 @@ public class Person extends Character implements Emotional, UsePhone, UseTelevis
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Person object = (Person) obj;
-        return (this.getName() == object.getName()) && (this.getEmotion() == object.getEmotion()) && (this.getStateOfPatience() == object.getStateOfPatience());
+        return (Objects.equals(this.getName(), object.getName())) && (Objects.equals(this.getEmotion(), object.getEmotion()))
+                && (this.getStateOfPatience() == object.getStateOfPatience());
     }
 
     @Override
