@@ -16,6 +16,7 @@ public class TVStudio extends WorkPlace<OwnerOfTVStudio, Showman>{
             boss.assignSalary(worker, 50);
         }
     }
+
     public void showPerformance(){
         Performance performance;
         if (boss.isWasThreatened()){
